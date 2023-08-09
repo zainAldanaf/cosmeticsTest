@@ -1,7 +1,7 @@
 
 import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
-import 'package:cosmeticstest/core/models/items.dart';
+import 'package:cosmeticstest/core/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -61,10 +61,9 @@ class CustomSearchBar extends StatelessWidget{
 }
 class CustomCategoryContainer extends StatelessWidget{
 
-  final Product product;
+  final Category category;
 
-  CustomCategoryContainer(this.product);
-
+  CustomCategoryContainer(this.category);
 
 
   @override
@@ -80,9 +79,9 @@ class CustomCategoryContainer extends StatelessWidget{
       child: Center(
         child: Column(children: [
           SizedBox(height: 10,),
-          SvgPicture.asset(product.image as String, width: 40, height: 40, color: AppColors.white,),
+          SvgPicture.asset(category.image as String, width: 40, height: 40, color: AppColors.white,),
           SizedBox(height: 7,),
-          Text(product.title, style: TextStyle(color: AppColors.white, fontSize: 16),),
+          Text(category.title, style: TextStyle(color: AppColors.white, fontSize: 16),),
 
         ],),
       ),
@@ -91,10 +90,13 @@ class CustomCategoryContainer extends StatelessWidget{
   }
 
 }
-class CustomHomeItem extends StatelessWidget{
 
-  final Items Item;
-   CustomHomeItem(this.Item);
+class CustomProductItem extends StatelessWidget{
+
+
+  final Product product;
+  CustomProductItem(this.product);
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,38 +124,51 @@ class CustomHomeItem extends StatelessWidget{
          Row(children: [
            Column(
                children: [
-                 Container(
-                   width: 40,
-                   height: 40,
-                   decoration: const BoxDecoration(
-                     shape: BoxShape.circle,
-                     color: AppColors.yellow,
+                 Positioned(
+                   top: 50,
+                   left: 50,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Container(
+                     width: 40,
+                     height: 40,
+                     decoration: const BoxDecoration(
+                       shape: BoxShape.circle,
+                       color: AppColors.yellow,
+                     ),
+                     child: Center(child: SvgPicture.asset(AppImages.vector)),
                    ),
-                   child: Center(child: SvgPicture.asset(AppImages.vector)),
-                 ),
+                ),
+              ),
                  SizedBox(height: 8,),
-                 Container(
-                   width: 40,
-                   height: 40,
-                   decoration: const BoxDecoration(
-                     shape: BoxShape.circle,
-                     color: AppColors.pink,
-                   ),
-                   child: const Center(child: Text ("%20" ,textAlign: TextAlign.center,style: TextStyle(
-                     color: AppColors.white,
-                     fontWeight: FontWeight.normal,)),
+                 Positioned(
+                   top: 50,
+                   left: 50,
+                 child:Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 6),
+                   child: Container(
+                     width: 40,
+                     height: 40,
+                     decoration: const BoxDecoration(
+                       shape: BoxShape.circle,
+                       color: AppColors.lightPink,
+                     ),
 
-                   ),
+                     child: const Center(child: Text ("%20" ,textAlign: TextAlign.center,style: TextStyle(
+                       color: AppColors.white,
+                       fontWeight: FontWeight.normal,)),
+                     ),
+                     ),
+                 ),
                ),
            ],),
            const SizedBox(width: 5,),
-           Image.asset(Item.image),
+           Image.asset(product.image),
          ],),
        ]),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: boldText(text: Item.title, fontWeight: FontWeight.bold, fontSize: 20),
+            child: boldText(text:product.title, fontWeight: FontWeight.bold, fontSize: 20),
           ),
          Padding(
            padding: const EdgeInsets.all(8.0),
@@ -161,7 +176,7 @@ class CustomHomeItem extends StatelessWidget{
              mainAxisAlignment: MainAxisAlignment.end,
              children: [
              Text(
-               Item.oldPrice as String,
+               product.oldPrice as String,
                style: const TextStyle(
                  fontSize: 18,
                  decoration: TextDecoration.lineThrough,
@@ -172,7 +187,7 @@ class CustomHomeItem extends StatelessWidget{
              SvgPicture.asset(AppImages.currency, width: 15,height: 10,),
              const SizedBox(width: 5),
              Text(
-               Item.price as String,
+               product.price as String,
                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: AppColors.pink),
              ),
            ],),
@@ -187,7 +202,7 @@ class CustomHomeItem extends StatelessWidget{
            ),
            child: Center(
              child: Text(
-               Item.location,
+               product.city,
                style: const TextStyle(
                    fontSize: 18,
                    fontWeight: FontWeight.bold,
@@ -197,6 +212,56 @@ class CustomHomeItem extends StatelessWidget{
          )
      ],)
    );
+  }
+}
+
+class CustomHomeProductItem extends StatelessWidget{
+
+  List<Product>? items;
+  String? title;
+  CustomHomeProductItem({this.items , this.title});
+
+  @override
+  Widget build(BuildContext context) {
+   return Column(
+     crossAxisAlignment: CrossAxisAlignment.end,
+     children: [
+       Row(
+         children: [
+           SizedBox(width:20 ,),
+           SubTitleText(subTitle: AppText.more),
+           SizedBox(width:210 ,),
+           Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 23
+             ),
+             child: boldText(
+               text: title?? '',
+               fontWeight: FontWeight.bold,
+               fontSize: 19,
+             ),
+           ),
+         ],
+       ),
+       SizedBox(
+         height: 250,
+         child: ListView.builder(
+           itemBuilder:(context, index) {
+             Product product = items![index];
+             return Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: InkWell(
+                 onTap: () {},
+                 child: Row(children: [
+                   CustomProductItem(product)
+                 ]),
+               ),
+             );
+           },
+           itemCount: items?.length??0,
+           scrollDirection: Axis.horizontal,
+         ),
+       )
+   ],);
   }
 
 }

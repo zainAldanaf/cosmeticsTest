@@ -1,9 +1,16 @@
 
+
 class Product{
-  final int id;
-  final String title;
-  final String image;
+  String image;
+  String title;
+  String price;
+  String oldPrice;
+  String city;
 
-  Product(this.id, this.title,this.image);
-
+  Product(this.image,
+      this.title,
+      this.price,
+      this.oldPrice,
+      this.city
+      );
 }

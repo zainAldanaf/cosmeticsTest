@@ -53,7 +53,7 @@ class _NavigationBarState extends State<NavigationBarScreen> {
                minWidth: 40,
                onPressed: () {
                  setState(() {
-                   currentScreen = HomeScreen();
+                   currentScreen = MoreItems();
                    currentTab = 0;
                  });
                },
@@ -70,8 +70,9 @@ class _NavigationBarState extends State<NavigationBarScreen> {
              MaterialButton(
                minWidth: 40,
                onPressed: () {
+
                  setState(() {
-                   currentScreen = HomeScreen();
+                   currentScreen = AddPiece();
                    currentTab = 1;
                  });
                },
@@ -88,8 +89,9 @@ class _NavigationBarState extends State<NavigationBarScreen> {
              MaterialButton(
                minWidth: 40,
                onPressed: () {
+
                  setState(() {
-                   currentScreen = HomeScreen();
+                   currentScreen = Categories();
                    currentTab = 2;
                  });
                },
@@ -106,6 +108,7 @@ class _NavigationBarState extends State<NavigationBarScreen> {
              MaterialButton(
                minWidth: 40,
                onPressed: () {
+
                  setState(() {
                    currentScreen = HomeScreen();
                    currentTab = 3;

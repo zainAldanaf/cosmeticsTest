@@ -6,4 +6,4 @@ class onBordingData {
 
   onBordingData(this.title, this.description, this.img);
 
- }
+}

@@ -3,7 +3,7 @@ import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/constant/colors.dart';
 import 'package:cosmeticstest/core/custom/CustomContainer.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
-import 'package:cosmeticstest/core/models/items.dart';
+import 'package:cosmeticstest/core/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,24 +17,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController controller = TextEditingController();
 
-  final List<Product> items = [
-    Product(1,AppText.beauty,AppImages.cosmeticsSvg),
-    Product(2,AppText.baby,AppImages.baby),
-    Product(3,AppText.accessories,AppImages.accessory),
-    Product(4,AppText.nature,AppImages.nature),
-    Product(5,AppText.pharmacy,AppImages.pharmacy),
-    Product(6,AppText.optics,AppImages.optics),
-
-    // Add more items as needed
+  final List<Category> category = [
+    Category(1,AppText.beauty,AppImages.cosmeticsSvg),
+    Category(2,AppText.baby,AppImages.baby),
+    Category(3,AppText.accessories,AppImages.accessory),
+    Category(4,AppText.nature,AppImages.nature),
+    Category(5,AppText.pharmacy,AppImages.pharmacy),
+    Category(6,AppText.optics,AppImages.optics),
   ];
-  late final Product _product;
 
-  final List<Items> item = [
-    Items(1,AppText.radio,AppImages.radio,'55','60',AppText.city),
-
-    // Add more items as needed
+  final List<Product> product = [
+    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
   ];
-  late final Items _Items;
+  late final Category _category;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,62 +66,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: boldText(text: AppText.category, fontWeight: FontWeight.bold, fontSize: 20,),
               ),
+
               SizedBox(
                   height: 140,
-                  child: ListView.builder(
-                    itemBuilder:(context, index) {
-                      final item = items[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Row(children: [
-                            CustomCategoryContainer(item)
-                          ]),
-                        ),
-                      );
-                    },
-                    itemCount: items.length,
-                    scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: ListView.builder(
+                      itemBuilder:(context, index) {
+                        final item = category[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Row(children: [
+                              CustomCategoryContainer(item)
+                            ]),
+                          ),
+                        );
+                      },
+                      itemCount: category.length,
+                      scrollDirection: Axis.horizontal,
+                    ),
                   ),
                   ), //category
-              Row(
-                children: [
-                  SizedBox(width:20 ,),
-                  SubTitleText(subTitle: AppText.more),
-                  SizedBox(width:210 ,),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 23
-                    ),
-                    child: boldText(
-                      text: AppText.recentlyAdded,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
-                    ),
-                  ),
-                ],
-              ),
-              /*SizedBox(
-                height: 250,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Row(children: [
-                          CustomHomeItem(
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ],
-                ),
-              )*/
+              CustomHomeProductItem(items: product, title: AppText.recentlyAdded,),
+              CustomHomeProductItem(items: product, title: AppText.beauty,),
+
+
 
             ]),
       ),
