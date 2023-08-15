@@ -122,8 +122,10 @@ class AppText {
   static String notification_msg= 'تم استلام طلبك بنجاح. يمكنك مراجعة رقم '
       'رقم الطلب 150607# لمزيد من التفاصيل';
 
-
-
+ static String cart = "سلة التسوق";
+  static String total = "الإجمالي ";
+  static String addOrder = "إرسال الطلبية";
+static String cleanCart = "إفراغ السلة";
 
 
 

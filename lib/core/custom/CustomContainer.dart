@@ -13,39 +13,45 @@ import '../constant/colors.dart';
 import '../models/Products.dart';
 
 
-class CustomContainer extends StatelessWidget{
+class CustomContainer extends StatefulWidget{
    final Widget? prefixIcon;
    double? width;
    double? height;
    final Color? backgroundColor;
+   final Function()? function;
 
-   CustomContainer(
-      this.prefixIcon, this.width, this.height, this.backgroundColor);
+
+   CustomContainer(this.prefixIcon, this.width, this.height,
+      this.backgroundColor, this.function);
 
   @override
+  State<CustomContainer> createState() => _CustomContainerState();
+}
+
+class _CustomContainerState extends State<CustomContainer> {
+  @override
   Widget build(BuildContext context) {
-    void navigateToPage(BuildContext context) {
+   /* void navigateToPage(BuildContext context) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => FavoriteScreen()),
       );
-    }
+    }*/
     return GestureDetector(
       onTap: () {
-        navigateToPage(context);
+       widget.function;
       },
       child: Container(
-        height: height,
-        width: width,
+        height: widget.height,
+        width: widget.width,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: widget.backgroundColor,
           borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
         ),
-        child: prefixIcon,
+        child: widget.prefixIcon,
       ),
     );
   }
-
 }
 
 class CustomSearchBar extends StatelessWidget{

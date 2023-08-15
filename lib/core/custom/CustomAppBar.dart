@@ -1,15 +1,25 @@
+import 'package:cosmeticstest/presentation/favoriteScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/pages/NavigationBarScreen/CategoryDetails/cart.dart';
 import '../constant/AppText.dart';
 import '../constant/colors.dart';
 import 'CustomContainer.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   String title;
 
   CustomAppBar(this.title);
 
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(100);}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Size get preferredSize => Size.fromHeight(100);
 
@@ -22,19 +32,39 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row( // Wrap the CustomContainer and title in a Row
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomContainer(Icon(Icons.notifications_none, color: AppColors.black, size: 25),45,45,AppColors.white),
+          CustomContainer(Icon(Icons.notifications_none, color: AppColors.black, size: 25),45,45,AppColors.white,
+                () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FavoriteScreen()),
+              );
+              setState(() {
+
+              });
+            },),
+
           SizedBox(width: 15,),
-          CustomContainer(Icon(Icons.favorite_border, color: AppColors.black, size: 25),45,45,AppColors.white),
+          CustomContainer(Icon(Icons.favorite_border, color: AppColors.black, size: 25),45,45,AppColors.white,
+                () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FavoriteScreen()),
+              );
+              setState(() {
+
+              });
+            },),
           SizedBox(width: 100), // Add some spacing between the elements
           Text(
-            title,
+            widget.title,
             style: TextStyle(fontSize: 20),
           ),
         ],
       ),
     );
   }
-
 }
 
 class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
@@ -58,7 +88,15 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
           Row(
             children: [
               CustomContainer(
-                  Icon(Icons.shopping_cart_outlined, color: AppColors.pink, size: 25),45,45,AppColors.white),
+                  Icon(Icons.shopping_cart_outlined, color: AppColors.pink, size: 25),45,45,AppColors.white,
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => cartScreen()),
+                  );
+
+                },),
               SizedBox(width: 10,),
             ],)
 

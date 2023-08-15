@@ -45,7 +45,7 @@ class _CategoriesState extends State<Categories> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => cartScreen(),
+                          builder: (context) => DetailCategory(),
                         ),
                       );
                     },
