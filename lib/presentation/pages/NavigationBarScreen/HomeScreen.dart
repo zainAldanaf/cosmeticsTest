@@ -7,7 +7,7 @@ import 'package:cosmeticstest/core/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/models/Products.dart';
+import '../../../core/models/Products.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -26,12 +26,24 @@ class _HomeScreenState extends State<HomeScreen> {
     Category(6,AppText.optics,AppImages.optics),
   ];
 
-  final List<Product> product = [
+  final List<Product> Radioproduct = [
     Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
     Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
     Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
   ];
-  late final Category _category;
+
+  final List<Product> babyproduct = [
+    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+  ];
+
+  final List<Product> furnituresproduct = [
+    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const CustomContainer(Icon(Icons.notifications_active, color: AppColors.black, size: 30,)),
+                     CustomContainer(Icon(Icons.notifications_active, color: AppColors.black, size: 30,),45,45,AppColors.white),
                     const SizedBox(width: 8,),
-                    const CustomContainer(Icon(Icons.favorite_border, color: AppColors.black, size: 30,)),
+                     CustomContainer(Icon(Icons.favorite_border, color: AppColors.black, size: 30,),45,45,AppColors.white),
                     const SizedBox(width: 8,),
-                    const CustomContainer(Icon(Icons.notifications_none, color: AppColors.black, size: 30,)),
+                     CustomContainer(Icon(Icons.notifications_none, color: AppColors.black, size: 30,),45,45,AppColors.white),
                     const SizedBox(width: 110,),
                     Image.asset(AppImages.splashImage, width: 70, height: 70,),
                   ],
@@ -89,10 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ), //category
-              CustomHomeProductItem(items: product, title: AppText.recentlyAdded,),
-              CustomHomeProductItem(items: product, title: AppText.beauty,),
-
-
+              CustomHomeProductItem(items: Radioproduct, title: AppText.recentlyAdded,),
+              CustomHomeProductItem(items: babyproduct, title: AppText.choose,),
+              CustomHomeProductItem(items: furnituresproduct, title: AppText.baby,),
 
             ]),
       ),

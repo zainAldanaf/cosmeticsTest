@@ -67,6 +67,63 @@ class AppText {
 
   static String addPiece = "اضف قطعة";
   static String home = "الرئيسية";
+  static String choose = "اختيرت لك";
+
+  static String chair = "كرسي مبطن";
+  static String bed = "سرير القلعة للأطفال";
+
+  static String clothsCat = "ملابس واكسسوارات";
+  static String furnitureCat = "أثاث مستعمل";
+  static String electronicCat = "الكترونيات وكهربائيات";
+  static String carsCat = "سيارات";
+  static String apartmentsCat = "شقق سكنية";
+  static String sellersCat = "شروات";
+  static String donationsCat = "تبرعات";
+
+  static String office = "أثاث المكتب";
+  static String garden = "أثاث الحدائق";
+  static String decoration = "ديكور";
+  static String favorite = "المفضلة";
+
+  static String name = "محمد زياد النخالة";
+  static String company = "متجر الوكيل";
+
+
+  static String homefurniture='الأثاث المنزلي';
+
+  static String table3= 'طاولات ضيافة عدد ٣';
+  static String coffee_table='طاولة فناجين القهوة';
+  static String sofa='اريكة صالة ثنائية';
+  static String chairK= 'كرسي ملوكي';
+  static String shoes_table='جزامة كلاسيك';
+  static String phone_table='طاولة تليفون انتيكا';
+
+  static String order_products='ترتيب المنتجات';
+  static String high_price='الأعلى سعراً';
+  static String least_price='الأقل سعراً';
+  static String orderBtn='ترتيب';
+
+  static String newbtn='شبه جديد';
+  static String logo_titleC='متجر الوكيل';
+
+  static String add_to_cart='إضافة الى السلة';
+  static String contact_whatsapp='تواصل عبر واتس اب';
+
+  static String product_details= 'تفاصيل المنتج';
+  static String product_details_pargh='ناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم '
+      'استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام "هنا  محتوى نصي،'
+      ' هنا يوجد محتوى نصي" فتجعلها تبدو (أي الأحرف) وكأنها نص مقروء'
+      'ناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ';
+
+  static String read_more= 'إقرأ المزيد';
+  static String similar_product= 'منتجات مشابهة';
+
+  static String notification= 'الاشعارات';
+  static String notification_msg= 'تم استلام طلبك بنجاح. يمكنك مراجعة رقم '
+      'رقم الطلب 150607# لمزيد من التفاصيل';
+
+
+
 
 
 

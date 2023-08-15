@@ -79,3 +79,36 @@ class CustomMaterialButton extends StatelessWidget{
   }
 
 }
+
+class CustomFilterBtn extends StatelessWidget {
+
+  final Widget prefixIcon;
+  final Function()? onPressed;
+
+  CustomFilterBtn({required this.prefixIcon, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        decoration:  BoxDecoration(
+          color: AppColors.lightPink, // Change the color as needed
+          borderRadius: BorderRadius.circular(20), // Adjust the radius as needed
+        ),
+        width: 60,
+        height: 60,
+        alignment: Alignment.center,
+        child: Center(
+          child: IconButton(
+            color: AppColors.white,
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(primary: Color(0xFFF59AA9),
+              padding: EdgeInsets.symmetric(horizontal: 145, vertical: 12),),
+            icon: prefixIcon,
+
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -8,9 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/custom/customText.dart';
-import '../../widgets/on_boarding_widget.dart';
-import 'Auth/SignUpScreen.dart';
+import '../../../core/custom/customText.dart';
+import '../../../widgets/on_boarding_widget.dart';
+import '../Auth/SignUpScreen.dart';
 
 class onBoardingScreen extends StatefulWidget {
   @override

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'HomeScreen.dart';
 import 'add_piece.dart';
-import 'categories.dart';
+import 'Category/categories.dart';
 import 'more.dart';
 
 class NavigationBarScreen extends StatefulWidget{
@@ -34,11 +34,11 @@ class _NavigationBarState extends State<NavigationBarScreen> {
            bucket: bucket,
      ),
      floatingActionButton: FloatingActionButton(
-       child: Icon(Icons.notifications,),
+       child: Image.asset(AppImages.logo, width:300,height: 300,),
        onPressed: (){
 
        },
-       backgroundColor: AppColors.pink,
+       backgroundColor: AppColors.white,
      ),
      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
      bottomNavigationBar: BottomAppBar(

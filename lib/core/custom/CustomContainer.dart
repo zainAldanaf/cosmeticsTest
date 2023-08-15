@@ -2,10 +2,12 @@
 import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
 import 'package:cosmeticstest/core/models/category.dart';
+import 'package:cosmeticstest/core/models/favorite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../presentation/favoriteScreen.dart';
 import '../constant/AppText.dart';
 import '../constant/colors.dart';
 import '../models/Products.dart';
@@ -13,26 +15,39 @@ import '../models/Products.dart';
 
 class CustomContainer extends StatelessWidget{
    final Widget? prefixIcon;
+   double? width;
+   double? height;
+   final Color? backgroundColor;
 
-  const CustomContainer(
-    this.prefixIcon
-      );
+   CustomContainer(
+      this.prefixIcon, this.width, this.height, this.backgroundColor);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      width: 52,
-      height: 50,
-      child: prefixIcon,
-      decoration: BoxDecoration(
-        color: AppColors.lightGray2,
-        borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+    void navigateToPage(BuildContext context) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FavoriteScreen()),
+      );
+    }
+    return GestureDetector(
+      onTap: () {
+        navigateToPage(context);
+      },
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+        ),
+        child: prefixIcon,
       ),
     );
   }
 
 }
+
 class CustomSearchBar extends StatelessWidget{
 
   final TextEditingController controller;
@@ -59,6 +74,7 @@ class CustomSearchBar extends StatelessWidget{
   }
 
 }
+
 class CustomCategoryContainer extends StatelessWidget{
 
   final Category category;
@@ -95,7 +111,9 @@ class CustomProductItem extends StatelessWidget{
 
 
   final Product product;
-  CustomProductItem(this.product);
+  double height;
+  double width;
+  CustomProductItem(this.product,this.width,this.height);
 
 
   @override
@@ -140,12 +158,11 @@ class CustomProductItem extends StatelessWidget{
                    ),
                 ),
               ),
-                 SizedBox(height: 8,),
                  Positioned(
                    top: 50,
                    left: 50,
                  child:Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 6),
+                   padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
                    child: Container(
                      width: 40,
                      height: 40,
@@ -163,7 +180,7 @@ class CustomProductItem extends StatelessWidget{
                ),
            ],),
            const SizedBox(width: 5,),
-           Image.asset(product.image),
+           Image.asset(product.image , width: 85, height:85,),
          ],),
        ]),
           Padding(
@@ -171,43 +188,52 @@ class CustomProductItem extends StatelessWidget{
             child: boldText(text:product.title, fontWeight: FontWeight.bold, fontSize: 20),
           ),
          Padding(
-           padding: const EdgeInsets.all(8.0),
+           padding: const EdgeInsets.all(5.0),
            child: Row(
              mainAxisAlignment: MainAxisAlignment.end,
              children: [
              Text(
-               product.oldPrice as String,
+               product.price as String,
                style: const TextStyle(
                  fontSize: 18,
                  decoration: TextDecoration.lineThrough,
                  color: AppColors.lightGray,
                ),
              ),
-             const SizedBox(width: 10),
+             const SizedBox(width: 5),
              SvgPicture.asset(AppImages.currency, width: 15,height: 10,),
              const SizedBox(width: 5),
              Text(
-               product.price as String,
-               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: AppColors.pink),
+               product.oldPrice as String,
+               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: AppColors.pink),
              ),
            ],),
          ),
-         Container(
-           width: 100,
-           height: 25,
-           decoration: BoxDecoration(
-             shape: BoxShape.rectangle,
-             color: AppColors.pink,
-             borderRadius: BorderRadius.circular(15),
-           ),
-           child: Center(
-             child: Text(
-               product.city,
-               style: const TextStyle(
-                   fontSize: 18,
-                   fontWeight: FontWeight.bold,
-                   color: AppColors.white
-               ),),
+         Padding(
+           padding: const EdgeInsets.symmetric(horizontal:15),
+           child: Container(
+             width: 60,
+             height: 25,
+             decoration: BoxDecoration(
+               shape: BoxShape.rectangle,
+               color: AppColors.pink,
+               borderRadius: BorderRadius.circular(13),
+             ),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.end,
+                 children: [
+                   Text(
+                     product.city,
+                     style: const TextStyle(
+                         fontSize: 14,
+                         color: AppColors.white,
+                     ),
+                   ),
+                   Icon(Icons.location_on_outlined , color: AppColors.white,size: 15,),
+                   SizedBox(width: 5,),
+
+                 ],
+               ),
            ),
          )
      ],)
@@ -252,7 +278,7 @@ class CustomHomeProductItem extends StatelessWidget{
                child: InkWell(
                  onTap: () {},
                  child: Row(children: [
-                   CustomProductItem(product)
+                   CustomProductItem(product, 170,320,)
                  ]),
                ),
              );
@@ -265,3 +291,143 @@ class CustomHomeProductItem extends StatelessWidget{
   }
 
 }
+
+class CustomCategoryPageContainer extends StatelessWidget{
+
+  final Category categoryPage;
+
+  CustomCategoryPageContainer(this.categoryPage);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        width: 192,
+        height: 300,
+        decoration: BoxDecoration(
+          color: AppColors.pink,
+          borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+        ),
+        child: Center(
+          child: Column(children: [
+            SizedBox(height: 15,),
+            SvgPicture.asset(categoryPage.image as String, width: 68, height: 68, color: AppColors.white,),
+            SizedBox(height: 25,),
+            Text(categoryPage.title, style: TextStyle(color: AppColors.white, fontSize: 22),),
+
+          ],),
+        ),
+
+      );
+  }
+
+}
+
+class CustomFavoriteContainer extends StatelessWidget{
+
+  final Favorite favorite;
+
+  const CustomFavoriteContainer({super.key, required this.favorite});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 250,
+      height: 290,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes the shadow direction
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Positioned(
+                  right: 15, // Adjust the position of the icon outside the circle
+                  bottom: 10, // Adjust the position of the icon outside the circle
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.pink,
+                    ),
+                    child: Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 90,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.white,
+                    // Background color for the circle
+                  ),
+
+                ),
+                Positioned(
+                  top: 5,
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: AppColors.white,
+                    backgroundImage: AssetImage(favorite.image),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+        boldText(text: favorite.name, fontWeight: FontWeight.bold, fontSize: 16),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 75,
+              height: 23,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: AppColors.pink,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    AppText.city,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  Icon(Icons.location_on_outlined , color: AppColors.white,size: 15,),
+                  SizedBox(width: 5,),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+

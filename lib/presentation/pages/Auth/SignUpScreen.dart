@@ -3,12 +3,12 @@ import 'package:cosmeticstest/core/constant/colors.dart';
 import 'package:cosmeticstest/core/custom/CustomFormTextfield.dart';
 import 'package:cosmeticstest/presentation/pages/Auth/create_account.dart';
 import 'package:cosmeticstest/presentation/pages/Auth/forgetPassword.dart';
-import 'package:cosmeticstest/presentation/pages/NavigationBar.dart';
+import 'package:cosmeticstest/presentation/pages/NavigationBarScreen/NavigationBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constant/Images.dart';
 import '../../../core/custom/CustomButton.dart';
-import '../HomeScreen.dart';
+import '../NavigationBarScreen/HomeScreen.dart';
 
 
 class SignUpScreen extends StatefulWidget{

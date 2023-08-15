@@ -1,4 +1,4 @@
-import 'package:cosmeticstest/presentation/pages/OnBoardingScreen.dart';
+import 'package:cosmeticstest/presentation/pages/IntroScreens/OnBoardingScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
