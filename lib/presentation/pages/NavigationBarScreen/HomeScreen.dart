@@ -45,6 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
     Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
   ];
 
+  void navigate() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => FavoriteScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,14 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     45,
                     45,
-                    AppColors.white,
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FavoriteScreen()),
-                        );
-                      },),
+                    AppColors.white
+                     ),
 
                  SizedBox(
                   width: 8,
@@ -86,14 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     45,
                     45,
-                    AppColors.white,
-                      () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FavoriteScreen()),
-                    );
-                  },
+                    AppColors.white
                 ),
                 const SizedBox(
                   width: 8,
@@ -107,13 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     45,
                     45,
                     AppColors.white,
-                      () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FavoriteScreen()),
-                    );
-                  },),
+
+                  ),
                 const SizedBox(
                   width: 110,
                 ),

@@ -14,15 +14,14 @@ import '../models/Products.dart';
 
 
 class CustomContainer extends StatefulWidget{
-   final Widget? prefixIcon;
-   double? width;
-   double? height;
-   final Color? backgroundColor;
-   final Function()? function;
+  final Widget? prefixIcon;
+  double? width;
+  double? height;
+  final Color? backgroundColor;
 
 
-   CustomContainer(this.prefixIcon, this.width, this.height,
-      this.backgroundColor, this.function);
+  CustomContainer(this.prefixIcon, this.width, this.height,
+      this.backgroundColor);
 
   @override
   State<CustomContainer> createState() => _CustomContainerState();
@@ -31,17 +30,8 @@ class CustomContainer extends StatefulWidget{
 class _CustomContainerState extends State<CustomContainer> {
   @override
   Widget build(BuildContext context) {
-   /* void navigateToPage(BuildContext context) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => FavoriteScreen()),
-      );
-    }*/
-    return GestureDetector(
-      onTap: () {
-       widget.function;
-      },
-      child: Container(
+
+      return Container(
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
@@ -49,7 +39,6 @@ class _CustomContainerState extends State<CustomContainer> {
           borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
         ),
         child: widget.prefixIcon,
-      ),
     );
   }
 }
@@ -78,9 +67,7 @@ class CustomSearchBar extends StatelessWidget{
       },
     );
   }
-
 }
-
 class CustomCategoryContainer extends StatelessWidget{
 
   final Category category;

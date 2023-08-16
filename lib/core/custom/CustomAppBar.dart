@@ -2,67 +2,78 @@ import 'package:cosmeticstest/presentation/favoriteScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/pages/NavigationBarScreen/CategoryDetails/NotificationScren.dart';
 import '../../presentation/pages/NavigationBarScreen/CategoryDetails/cart.dart';
 import '../constant/AppText.dart';
 import '../constant/colors.dart';
 import 'CustomContainer.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+import 'package:flutter/material.dart';
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
 
   CustomAppBar(this.title);
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(100);}
-
-class _CustomAppBarState extends State<CustomAppBar> {
-  @override
-  Size get preferredSize => Size.fromHeight(100);
+  Size get preferredSize => Size.fromHeight(120);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.pink,
-      elevation: 4,
       toolbarHeight: 100,
-      title: Row( // Wrap the CustomContainer and title in a Row
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CustomContainer(Icon(Icons.notifications_none, color: AppColors.black, size: 25),45,45,AppColors.white,
-                () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FavoriteScreen()),
-              );
-              setState(() {
-
-              });
-            },),
-
-          SizedBox(width: 15,),
-          CustomContainer(Icon(Icons.favorite_border, color: AppColors.black, size: 25),45,45,AppColors.white,
-                () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => FavoriteScreen()),
-              );
-              setState(() {
-
-              });
-            },),
-          SizedBox(width: 100), // Add some spacing between the elements
-          Text(
-            widget.title,
-            style: TextStyle(fontSize: 20),
-          ),
-        ],
+      backgroundColor: AppColors.pink,
+      automaticallyImplyLeading: false,
+      title:
+      Padding(
+          padding: EdgeInsets.only(left: 15.0, top: 40.0),
+          child:
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NotificationWidget(),
+                    ),
+                  );
+                },
+                child: CustomContainer(
+                    Icon(Icons.notifications_active_outlined,
+                        color: AppColors.black, size: 25),
+                    50, 50,AppColors.lightGray2),
+              ),
+              SizedBox(width: 10,),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoriteScreen()
+                    ),
+                  );
+                },
+                child: CustomContainer(
+                    Icon(Icons.favorite_border, color: AppColors.black,
+                        size: 25), 50, 50, AppColors.lightGray2),
+              ),
+            ],)
       ),
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(right: 20.0, top: 42.0),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ],
+
+
     );
   }
 }
@@ -83,20 +94,23 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title:
       Padding(
-          padding: EdgeInsets.only(left: 15.0,top: 40.0),
+          padding: EdgeInsets.only(left: 15.0, top: 40.0),
           child:
           Row(
             children: [
-              CustomContainer(
-                  Icon(Icons.shopping_cart_outlined, color: AppColors.pink, size: 25),45,45,AppColors.white,
-                    () {
+              GestureDetector(
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => cartScreen()),
+                      builder: (context) => cartScreen(),
+                    ),
                   );
-
-                },),
+                },
+                child: CustomContainer(
+                    Icon(Icons.shopping_cart_outlined, color: AppColors.pink,
+                        size: 25), 45, 45, AppColors.white),
+              ),
               SizedBox(width: 10,),
             ],)
 
@@ -108,7 +122,7 @@ class CustomAppBar2 extends StatelessWidget implements PreferredSizeWidget {
             alignment: Alignment.bottomRight,
             child: Text(
               title,
-              style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
             ),
           ),
         ),
