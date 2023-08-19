@@ -18,10 +18,9 @@ class CategoryProduct extends StatefulWidget{
 }
 
 class _CategoryProductState extends State<CategoryProduct> {
+
   final TextEditingController controller = TextEditingController();
   late ProductProvider  productProvider = Provider.of<ProductProvider>(context, listen: false) ;
-
-
   int selectedValue = 1;
 
   @override
@@ -31,7 +30,6 @@ class _CategoryProductState extends State<CategoryProduct> {
    // loadData();
 
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +73,45 @@ class _CategoryProductState extends State<CategoryProduct> {
     );
   }
   Widget _buildContent() {
-    late Widget content;
+    return FutureBuilder<void>(
+      // Replace void with the appropriate data type returned by getDate()
+      future: Provider.of<ProductProvider>(context, listen: false).getDate(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator(); // Show loading indicator
+        } else if (snapshot.hasError) {
+          return Text('Error Loading Data'); // Show error message
+        } else {
+          return Expanded(
+            child: GridView.builder
+              (gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              // Number of columns in the grid
+              mainAxisSpacing: 15.0, // Spacing between rows
+              crossAxisSpacing: 15.0, // Spacing between columns
+            ),
+              itemCount: productProvider.items.length,
+              itemBuilder: (BuildContext context, int index) {
+                final product = productProvider.items[index];
 
+                return
+                  GestureDetector(onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => subProductPage(),
+                      ),
+                    );
+                  },child: CustomProductItem(product,200,320));
+              },),
+          );
+        }
+      },
+    );
+  }
+}
+  /*Widget _buildContent() {
+    late Widget content;
 
     switch (productProvider.errorType) {
       case ErrorType.dataLoading:
@@ -94,6 +129,7 @@ class _CategoryProductState extends State<CategoryProduct> {
             itemCount: productProvider.items.length,
             itemBuilder: (BuildContext context, int index) {
               final product = productProvider.items[index];
+
               return
                 GestureDetector(onTap: (){
                   Navigator.push(
@@ -111,5 +147,5 @@ class _CategoryProductState extends State<CategoryProduct> {
         break;
     }
     return content;
-  }
-}
+  }*/
+

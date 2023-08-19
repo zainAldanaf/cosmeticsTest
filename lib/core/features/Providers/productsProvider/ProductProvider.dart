@@ -7,6 +7,7 @@ import '../../../models/Products.dart';
 
 class ProductProvider extends ChangeNotifier {
   List<Product> items = [];
+
   ErrorType errorType=ErrorType.dataLoading;
   String getErrorMessage(ErrorType errorType) {
     switch (errorType) {
@@ -35,7 +36,7 @@ class ProductProvider extends ChangeNotifier {
     try{
 
 
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 2));
     List<Product> _items = [
       Product(AppImages.table3, AppText.table3, '55', '56', AppText.city),
       Product(AppImages.coffee_table, AppText.coffee_table, '55', '56', AppText.city),
