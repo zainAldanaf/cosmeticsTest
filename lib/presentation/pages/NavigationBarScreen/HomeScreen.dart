@@ -1,3 +1,5 @@
+
+import 'package:cosmeticstest/core/Services/remot_service.dart';
 import 'package:cosmeticstest/core/constant/AppText.dart';
 import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/constant/colors.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/models/Products.dart';
+import '../../../core/models/posts.dart';
 import '../../favoriteScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,6 +56,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  List<Post>? posts;
+  var isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  } // fetch data
+
+  getData() async {
+    posts = await RemoteServices().getPosts();
+    if(posts != null ){
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,19 +154,23 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 140,
             child: Padding(
               padding: const EdgeInsets.all(13.0),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  final item = category[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Row(children: [CustomCategoryContainer(item)]),
-                    ),
-                  );
-                },
-                itemCount: category.length,
-                scrollDirection: Axis.horizontal,
+              child: Visibility(
+                visible: isLoaded,
+                replacement: const Center(child: CircularProgressIndicator(),),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    final item = category[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Row(children: [CustomCategoryContainer(item)]),
+                      ),
+                    );
+                  },
+                  itemCount: category.length,
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
             ),
           ), //category

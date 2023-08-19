@@ -6,11 +6,15 @@ import 'package:cosmeticstest/core/models/favorite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../presentation/favoriteScreen.dart';
+import '../Services/remot_service.dart';
 import '../constant/AppText.dart';
 import '../constant/colors.dart';
+import '../features/Providers/productsProvider/ProductProvider.dart';
 import '../models/Products.dart';
+import '../models/posts.dart';
 
 
 class CustomContainer extends StatefulWidget{
@@ -68,6 +72,7 @@ class CustomSearchBar extends StatelessWidget{
     );
   }
 }
+
 class CustomCategoryContainer extends StatelessWidget{
 
   final Category category;
@@ -111,6 +116,9 @@ class CustomProductItem extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    final productList = productProvider.items;
+
    return Container(
      width: 170,
      height: 340,
@@ -234,11 +242,35 @@ class CustomProductItem extends StatelessWidget{
   }
 }
 
-class CustomHomeProductItem extends StatelessWidget{
+class CustomHomeProductItem extends StatefulWidget{
 
   List<Product>? items;
   String? title;
+
   CustomHomeProductItem({this.items , this.title});
+
+  @override
+  State<CustomHomeProductItem> createState() => _CustomHomeProductItemState();
+}
+class _CustomHomeProductItemState extends State<CustomHomeProductItem> {
+  List<Post>? posts;
+
+  var isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+ // fetch data
+  getData() async {
+    posts = await RemoteServices().getPosts();
+    if(posts != null ){
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +286,7 @@ class CustomHomeProductItem extends StatelessWidget{
              padding: const EdgeInsets.symmetric(horizontal: 23
              ),
              child: boldText(
-               text: title?? '',
+               text: widget.title?? '',
                fontWeight: FontWeight.bold,
                fontSize: 19,
              ),
@@ -263,26 +295,30 @@ class CustomHomeProductItem extends StatelessWidget{
        ),
        SizedBox(
          height: 250,
-         child: ListView.builder(
-           itemBuilder:(context, index) {
-             Product product = items![index];
-             return Padding(
-               padding: const EdgeInsets.all(8.0),
-               child: InkWell(
-                 onTap: () {},
-                 child: Row(children: [
-                   CustomProductItem(product, 170,320,)
-                 ]),
-               ),
-             );
-           },
-           itemCount: items?.length??0,
-           scrollDirection: Axis.horizontal,
+         child: Visibility(
+           visible: isLoaded,
+           replacement: const Center(child: CircularProgressIndicator(),),
+           child: ListView.builder(
+             itemBuilder:(context, index) {
+               final item = posts?[index];
+               Post postt = posts![index];
+               return Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: InkWell(
+                   onTap: () {},
+                   child: Text('oo'),
+                     //CustomProductItem(postt as Product, 170,320,)
+
+                 ),
+               );
+             },
+             itemCount: posts?.length  ??0,
+             scrollDirection: Axis.horizontal,
+           ),
          ),
        )
    ],);
   }
-
 }
 
 class CustomCategoryPageContainer extends StatelessWidget{

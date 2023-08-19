@@ -1,11 +1,29 @@
+import 'package:cosmeticstest/core/features/Providers/productsProvider/ProductProvider.dart';
 import 'package:cosmeticstest/presentation/pages/IntroScreens/OnBoardingScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
 
  WidgetsFlutterBinding.ensureInitialized();
- await Future.delayed(const Duration(seconds: 2));
-  runApp(const MyApp());
+
+
+ runApp( ChangeNotifierProvider(
+   create: (context) => ProductProvider(),
+   child: MaterialApp(
+     title: 'Flutter Provider Example',
+     debugShowCheckedModeBanner: false,
+     home: MyApp(),
+   ),
+ ));
+ /*runApp(ChangeNotifierProvider<ProductProvider>(
+   create: (context){
+     return ProductProvider();
+   },
+         child: MaterialApp( debugShowCheckedModeBanner: false,
+          home: MyApp())),
+
+  );*/
 
 }
 
