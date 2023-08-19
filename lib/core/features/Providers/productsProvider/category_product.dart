@@ -20,7 +20,7 @@ class CategoryProduct extends StatefulWidget{
 class _CategoryProductState extends State<CategoryProduct> {
   final TextEditingController controller = TextEditingController();
   late ProductProvider  productProvider = Provider.of<ProductProvider>(context, listen: false) ;
-  ErrorType _currentState = ErrorType.dataLoading;
+
 
   int selectedValue = 1;
 
@@ -28,51 +28,10 @@ class _CategoryProductState extends State<CategoryProduct> {
   void initState() {
     super.initState();
     productProvider.getDate();
-    loadData();
+   // loadData();
 
   }
-  String getErrorMessage(ErrorType errorType) {
-    switch (errorType) {
-      case ErrorType.showData:
-        return "Data found";
 
-      case ErrorType.dataNotFound:
-        return "Data not found";
-
-      case ErrorType.dataLoading:
-        return "Data Loading";
-
-      case ErrorType.pageError:
-        return "page error";
-
-      case ErrorType.networkProblem:
-        return "Network problem";
-
-      default:
-        return "An error occurred";
-    }
-  }
-
-  void loadData() {
-    setState(() {
-      _currentState = ErrorType.dataLoading;
-    });
-    // Simulate asynchronous data loading
-    Future.delayed(Duration(seconds: 3), () {
-      // Replace this with your actual data loading logic
-      bool dataLoadedSuccessfully = true;
-
-      if (dataLoadedSuccessfully) {
-        setState(() {
-          _currentState = ErrorType.showData;
-        });
-      } else {
-        setState(() {
-          _currentState = ErrorType.dataNotFound;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,22 +68,19 @@ class _CategoryProductState extends State<CategoryProduct> {
               ),
             ),
             SizedBox(height: 20,),
-             Visibility(
-              visible: _currentState != ErrorType.dataLoading,
-              replacement: CircularProgressIndicator(),
-              child:  _buildContent(),
-            )
+           _buildContent(),
+
           ],
         ),
     );
   }
   Widget _buildContent() {
     late Widget content;
-    late ProductProvider  productProvider = Provider.of<ProductProvider>(context, listen: false) ;
-    final productList = productProvider.items;
-    switch (_currentState) {
+
+
+    switch (productProvider.errorType) {
       case ErrorType.dataLoading:
-        content = Text('Loading...');
+        content = CircularProgressIndicator();
         break;
       case ErrorType.showData:
         content = Expanded(
@@ -135,9 +91,9 @@ class _CategoryProductState extends State<CategoryProduct> {
             mainAxisSpacing: 15.0, // Spacing between rows
             crossAxisSpacing: 15.0, // Spacing between columns
           ),
-            itemCount: productList.length,
+            itemCount: productProvider.items.length,
             itemBuilder: (BuildContext context, int index) {
-              final product = productList[index];
+              final product = productProvider.items[index];
               return
                 GestureDetector(onTap: (){
                   Navigator.push(
@@ -146,7 +102,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                       builder: (context) => subProductPage(),
                     ),
                   );
-                },child: CustomProductItem(productList[index]as Product,200,320));
+                },child: CustomProductItem(product,200,320));
             },),
         );
         break;
