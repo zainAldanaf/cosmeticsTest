@@ -1,29 +1,28 @@
 import 'package:cosmeticstest/domain/entities/enums/provider_enum.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../constant/Images.dart';
-import '../../../constant/AppText.dart';
 import '../../../models/Products.dart';
-
 
 class ProductProvider extends ChangeNotifier {
   List<Product> items = [];
 
-  ErrorType errorType=ErrorType.dataLoading;
-  String getErrorMessage(ErrorType errorType) {
+  PageState errorType = PageState.dataLoading;
+
+  String getErrorMessage(PageState errorType) {
     switch (errorType) {
-      case ErrorType.showData:
+      case PageState.showData:
         return "Data found";
 
-      case ErrorType.dataNotFound:
+      case PageState.dataNotFound:
         return "Data not found";
 
-      case ErrorType.dataLoading:
+      case PageState.dataLoading:
         return "Data Loading";
 
-      case ErrorType.pageError:
+      case PageState.pageError:
         return "page error";
 
-      case ErrorType.networkProblem:
+      case PageState.networkProblem:
         return "Network problem";
 
       default:
@@ -32,34 +31,31 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<void> getDate() async {
+    try {
+      Dio dio = Dio();
+      Response response = await dio.get('https://fakestoreapi.com/products');
 
-    try{
+      if (response.statusCode == 200) {
+        List<Product> _items = (response.data as List).map((x) => Product.fromJson(x)).toList();
+        items.addAll(_items);
 
+        if (items.isEmpty) {
+          errorType = PageState.dataNotFound;
+        } else {
+          errorType = PageState.showData;
+        }
+      }
+      if (items.isEmpty) {
+        errorType = PageState.dataNotFound;
+      } else {
+        errorType = PageState.showData;
+      }
+      notifyListeners();
 
-    await Future.delayed(Duration(seconds: 2));
-    List<Product> _items = [
-      Product(AppImages.table3, AppText.table3, '55', '56', AppText.city),
-      Product(AppImages.coffee_table, AppText.coffee_table, '55', '56', AppText.city),
-      Product(AppImages.sofa, AppText.sofa, '55', '56', AppText.city),
-      Product(AppImages.shoes_table, AppText.shoes_table, '55', '56', AppText.city),
-      Product(AppImages.chairK, AppText.chairK, '55', '56', AppText.city),
-      Product(AppImages.sofa, AppText.sofa, '55', '56', AppText.city),
-
-    ];
-
-    items.addAll(_items);
-
-    if(items.isEmpty){
-      errorType=ErrorType.dataNotFound;
-    }else{
-      errorType=ErrorType.showData;
-
+    } catch (e) {
+      errorType = PageState.pageError;
     }
-    }catch(e){
-      errorType=ErrorType.pageError;
 
-    }
-    notifyListeners();
-    print("errorType $errorType");
+    print("errorTypennn $errorType");
   }
 }

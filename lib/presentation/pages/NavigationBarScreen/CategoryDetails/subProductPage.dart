@@ -9,6 +9,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/custom/CustomAppBar.dart';
 import '../../../../core/custom/CustomButton.dart';
 import '../../../../core/custom/CustomContainer.dart';
+import '../../../../core/models/productItem.dart';
 
 class subProductPage extends StatefulWidget {
   const subProductPage({Key? key}) : super(key: key);
@@ -18,10 +19,10 @@ class subProductPage extends StatefulWidget {
 }
 
 class _DetailScreen4State extends State<subProductPage> {
-  final List<Product> c = [
-    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
-    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
-    Product(AppImages.chair, AppText.radio, '66', '56', AppText.city),
+  final List<ProductItems> c = [
+    ProductItems(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+    ProductItems(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+    ProductItems(AppImages.chair, AppText.radio, '66', '56', AppText.city),
   ];
   @override
   Widget build(BuildContext context) {

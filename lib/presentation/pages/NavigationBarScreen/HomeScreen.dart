@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/models/Products.dart';
-import '../../../core/models/posts.dart';
+import '../../../core/models/productItem.dart';
 import '../../favoriteScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,31 +21,31 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController controller = TextEditingController();
 
-  final List<Category> category = [
-    Category(1, AppText.beauty, AppImages.cosmeticsSvg),
-    Category(2, AppText.baby, AppImages.baby),
-    Category(3, AppText.accessories, AppImages.accessory),
-    Category(4, AppText.nature, AppImages.nature),
-    Category(5, AppText.pharmacy, AppImages.pharmacy),
-    Category(6, AppText.optics, AppImages.optics),
+  final List<ProductCategory> category = [
+    ProductCategory(1, AppText.beauty, AppImages.cosmeticsSvg),
+    ProductCategory(2, AppText.baby, AppImages.baby),
+    ProductCategory(3, AppText.accessories, AppImages.accessory),
+    ProductCategory(4, AppText.nature, AppImages.nature),
+    ProductCategory(5, AppText.pharmacy, AppImages.pharmacy),
+    ProductCategory(6, AppText.optics, AppImages.optics),
   ];
 
-  final List<Product> Radioproduct = [
-    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
-    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
-    Product(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+  final List<ProductItems> Radioproduct = [
+    ProductItems(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+    ProductItems(AppImages.radio, AppText.radio, '66', '56', AppText.city),
+    ProductItems(AppImages.radio, AppText.radio, '66', '56', AppText.city),
   ];
 
-  final List<Product> babyproduct = [
-    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
-    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
-    Product(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+  final List<ProductItems> babyproduct = [
+    ProductItems(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+    ProductItems(AppImages.chair, AppText.chair, '66', '56', AppText.city),
+    ProductItems(AppImages.chair, AppText.chair, '66', '56', AppText.city),
   ];
 
-  final List<Product> furnituresproduct = [
-    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
-    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
-    Product(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+  final List<ProductItems> furnituresproduct = [
+    ProductItems(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+    ProductItems(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
+    ProductItems(AppImages.babyProduct, AppText.bed, '66', '56', AppText.city),
   ];
 
   void navigate() {
@@ -56,23 +56,22 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  List<Post>? posts;
   var isLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    //getData();
   } // fetch data
 
-  getData() async {
+ /* getData() async {
     posts = await RemoteServices().getPosts();
     if(posts != null ){
       setState(() {
         isLoaded = true;
       });
     }
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(

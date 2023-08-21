@@ -1,4 +1,4 @@
-enum ErrorType {
+enum PageState {
   showData,
   dataNotFound,
   dataLoading,

@@ -15,13 +15,13 @@ class Categories extends StatefulWidget{
 }
 
 class _CategoriesState extends State<Categories> {
-  final List<Category> category = [
-    Category(1,AppText.beauty,AppImages.cosmeticsSvg),
-    Category(2,AppText.baby,AppImages.baby),
-    Category(3,AppText.accessories,AppImages.accessory),
-    Category(4,AppText.nature,AppImages.nature),
-    Category(5,AppText.pharmacy,AppImages.pharmacy),
-    Category(6,AppText.optics,AppImages.optics),
+  final List<ProductCategory> category = [
+    ProductCategory(1,AppText.beauty,AppImages.cosmeticsSvg),
+    ProductCategory(2,AppText.baby,AppImages.baby),
+    ProductCategory(3,AppText.accessories,AppImages.accessory),
+    ProductCategory(4,AppText.nature,AppImages.nature),
+    ProductCategory(5,AppText.pharmacy,AppImages.pharmacy),
+    ProductCategory(6,AppText.optics,AppImages.optics),
   ];
   @override
   Widget build(BuildContext context) {

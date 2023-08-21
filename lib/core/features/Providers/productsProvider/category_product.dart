@@ -1,6 +1,6 @@
 import 'package:cosmeticstest/core/constant/colors.dart';
 import 'package:cosmeticstest/core/features/Providers/productsProvider/ProductProvider.dart';
-import 'package:cosmeticstest/core/models/Products.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +8,10 @@ import '../../../constant/AppText.dart';
 import '../../../custom/CustomAppBar.dart';
 import '../../../custom/CustomButton.dart';
 import '../../../custom/CustomContainer.dart';
-import '../../../../domain/entities/enums/provider_enum.dart';
 import '../../../../widgets/radio_buttom.dart';
 import '../../../../presentation/pages/NavigationBarScreen/CategoryDetails/subProductPage.dart';
+import '../../../custom/CustomProductItem.dart';
+import '../../../models/productItem.dart';
 
 class CategoryProduct extends StatefulWidget{
   @override
@@ -22,15 +23,23 @@ class _CategoryProductState extends State<CategoryProduct> {
   final TextEditingController controller = TextEditingController();
   late ProductProvider  productProvider = Provider.of<ProductProvider>(context, listen: false) ;
   int selectedValue = 1;
+  var jsonList;
+  Dio dio = Dio();
 
   @override
   void initState() {
     super.initState();
     productProvider.getDate();
-   // loadData();
-
   }
 
+  void fetchData() async {
+    try {
+      Response response = await dio.get('https://fakestoreapi.com/products');
+      print(response.data);
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final productList = productProvider.items;
@@ -55,7 +64,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                     }, prefixIcon: Icon(Icons.filter_alt_outlined),
 
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -73,23 +82,23 @@ class _CategoryProductState extends State<CategoryProduct> {
     );
   }
   Widget _buildContent() {
+
     return FutureBuilder<void>(
-      // Replace void with the appropriate data type returned by getDate()
       future: Provider.of<ProductProvider>(context, listen: false).getDate(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Show loading indicator
+          return const CircularProgressIndicator(); // Show loading indicator
         } else if (snapshot.hasError) {
-          return Text('Error Loading Data'); // Show error message
+          return const Text('Error Loading Data');
         } else {
           return Expanded(
             child: GridView.builder
-              (gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              (gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              // Number of columns in the grid
-              mainAxisSpacing: 15.0, // Spacing between rows
-              crossAxisSpacing: 15.0, // Spacing between columns
+              mainAxisSpacing: 15.0,
+              crossAxisSpacing: 15.0,
             ),
+
               itemCount: productProvider.items.length,
               itemBuilder: (BuildContext context, int index) {
                 final product = productProvider.items[index];
@@ -99,10 +108,11 @@ class _CategoryProductState extends State<CategoryProduct> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => subProductPage(),
+                        builder: (context) => const subProductPage(),
                       ),
                     );
-                  },child: CustomProductItem(product,200,320));
+                  },
+                      child: CustomProductItem(product,200,320));
               },),
           );
         }
@@ -110,6 +120,7 @@ class _CategoryProductState extends State<CategoryProduct> {
     );
   }
 }
+
   /*Widget _buildContent() {
     late Widget content;
 

@@ -1,6 +1,8 @@
 
 import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
+import 'package:cosmeticstest/core/models/Products.dart';
+import 'package:cosmeticstest/core/models/Products.dart';
 import 'package:cosmeticstest/core/models/category.dart';
 import 'package:cosmeticstest/core/models/favorite.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +16,7 @@ import '../constant/AppText.dart';
 import '../constant/colors.dart';
 import '../features/Providers/productsProvider/ProductProvider.dart';
 import '../models/Products.dart';
-import '../models/posts.dart';
-
+import '../models/productItem.dart';
 
 class CustomContainer extends StatefulWidget{
   final Widget? prefixIcon;
@@ -75,7 +76,7 @@ class CustomSearchBar extends StatelessWidget{
 
 class CustomCategoryContainer extends StatelessWidget{
 
-  final Category category;
+  final ProductCategory category;
 
   CustomCategoryContainer(this.category);
 
@@ -105,146 +106,10 @@ class CustomCategoryContainer extends StatelessWidget{
 
 }
 
-class CustomProductItem extends StatelessWidget{
-
-
-  final Product product;
-  double height;
-  double width;
-  CustomProductItem(this.product,this.width,this.height);
-
-
-  @override
-  Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
-    final productList = productProvider.items;
-
-   return Container(
-     width: 170,
-     height: 340,
-     decoration: BoxDecoration(
-       color: Colors.white,
-       borderRadius: BorderRadius.circular(2),
-       boxShadow: [
-         BoxShadow(
-           color: Colors.grey.withOpacity(0.3),
-           spreadRadius: 2,
-           blurRadius: 3,
-           offset: Offset(0, 3), // changes the position of the shadow
-         ),
-       ],
-     ),
-     child: Column(
-       crossAxisAlignment: CrossAxisAlignment.end,
-       children: [
-       Stack(
-         alignment: Alignment.centerRight,
-         children: [
-         Row(children: [
-           Column(
-               children: [
-                 Positioned(
-                   top: 50,
-                   left: 50,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Container(
-                     width: 40,
-                     height: 40,
-                     decoration: const BoxDecoration(
-                       shape: BoxShape.circle,
-                       color: AppColors.yellow,
-                     ),
-                     child: Center(child: SvgPicture.asset(AppImages.vector)),
-                   ),
-                ),
-              ),
-                 Positioned(
-                   top: 50,
-                   left: 50,
-                 child:Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
-                   child: Container(
-                     width: 40,
-                     height: 40,
-                     decoration: const BoxDecoration(
-                       shape: BoxShape.circle,
-                       color: AppColors.lightPink,
-                     ),
-
-                     child: const Center(child: Text ("%20" ,textAlign: TextAlign.center,style: TextStyle(
-                       color: AppColors.white,
-                       fontWeight: FontWeight.normal,)),
-                     ),
-                     ),
-                 ),
-               ),
-           ],),
-           const SizedBox(width: 5,),
-           Image.asset(product.image , width: 85, height:85,),
-         ],),
-       ]),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: boldText(text:product.title, fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-         Padding(
-           padding: const EdgeInsets.all(5.0),
-           child: Row(
-             mainAxisAlignment: MainAxisAlignment.end,
-             children: [
-             Text(
-               product.price as String,
-               style: const TextStyle(
-                 fontSize: 18,
-                 decoration: TextDecoration.lineThrough,
-                 color: AppColors.lightGray,
-               ),
-             ),
-             const SizedBox(width: 5),
-             SvgPicture.asset(AppImages.currency, width: 15,height: 10,),
-             const SizedBox(width: 5),
-             Text(
-               product.oldPrice as String,
-               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: AppColors.pink),
-             ),
-           ],),
-         ),
-         Padding(
-           padding: const EdgeInsets.symmetric(horizontal:15),
-           child: Container(
-             width: 60,
-             height: 25,
-             decoration: BoxDecoration(
-               shape: BoxShape.rectangle,
-               color: AppColors.pink,
-               borderRadius: BorderRadius.circular(13),
-             ),
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.end,
-                 children: [
-                   Text(
-                     product.city,
-                     style: const TextStyle(
-                         fontSize: 14,
-                         color: AppColors.white,
-                     ),
-                   ),
-                   Icon(Icons.location_on_outlined , color: AppColors.white,size: 15,),
-                   SizedBox(width: 5,),
-
-                 ],
-               ),
-           ),
-         )
-     ],)
-   );
-  }
-}
 
 class CustomHomeProductItem extends StatefulWidget{
 
-  List<Product>? items;
+  List<ProductItems>? items;
   String? title;
 
   CustomHomeProductItem({this.items , this.title});
@@ -252,25 +117,18 @@ class CustomHomeProductItem extends StatefulWidget{
   @override
   State<CustomHomeProductItem> createState() => _CustomHomeProductItemState();
 }
+
 class _CustomHomeProductItemState extends State<CustomHomeProductItem> {
-  List<Post>? posts;
 
   var isLoaded = false;
+  List<ProductItems>? items;
+
 
   @override
   void initState() {
     super.initState();
-    getData();
   }
  // fetch data
-  getData() async {
-    posts = await RemoteServices().getPosts();
-    if(posts != null ){
-      setState(() {
-        isLoaded = true;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,8 +158,6 @@ class _CustomHomeProductItemState extends State<CustomHomeProductItem> {
            replacement: const Center(child: CircularProgressIndicator(),),
            child: ListView.builder(
              itemBuilder:(context, index) {
-               final item = posts?[index];
-               Post postt = posts![index];
                return Padding(
                  padding: const EdgeInsets.all(8.0),
                  child: InkWell(
@@ -312,7 +168,7 @@ class _CustomHomeProductItemState extends State<CustomHomeProductItem> {
                  ),
                );
              },
-             itemCount: posts?.length  ??0,
+             itemCount: items?.length  ??0,
              scrollDirection: Axis.horizontal,
            ),
          ),
@@ -323,7 +179,7 @@ class _CustomHomeProductItemState extends State<CustomHomeProductItem> {
 
 class CustomCategoryPageContainer extends StatelessWidget{
 
-  final Category categoryPage;
+  final ProductCategory categoryPage;
 
   CustomCategoryPageContainer(this.categoryPage);
 

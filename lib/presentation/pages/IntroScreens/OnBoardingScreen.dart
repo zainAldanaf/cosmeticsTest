@@ -4,6 +4,7 @@ import 'package:cosmeticstest/core/constant/AppText.dart';
 import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/constant/colors.dart';
 import 'package:cosmeticstest/core/models/onboardingData.dart';
+import 'package:cosmeticstest/presentation/pages/NavigationBarScreen/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/custom/customText.dart';
 import '../../../widgets/on_boarding_widget.dart';
 import '../Auth/SignUpScreen.dart';
+import '../NavigationBarScreen/NavigationBar.dart';
 
 class onBoardingScreen extends StatefulWidget {
   @override
@@ -84,7 +86,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                   if((splashData.length -1) == value){
                     Navigator.push(context,
                       MaterialPageRoute(
-                          builder: (context)=> SignUpScreen()),
+                          builder: (context)=> NavigationBarScreen()),
                     );
                   }
                   setState(() {

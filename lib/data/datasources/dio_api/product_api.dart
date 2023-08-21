@@ -1,24 +1,25 @@
-import 'package:cosmeticstest/core/models/productItem.dart';
+
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
 
- class RemoteServices {
-   RemoteServices();
-  Dio dio = Dio();
+class ProductApi{
+  Dio dio = Dio(); //Create an instance of Dio to make HTTP requests
 
+
+  //Making GET Request:
   void fetchData() async {
     try {
-      Response response = await dio.get('https://fakestoreapi.com/products');
+      Response response = await dio.get('https://api.example.com/data');
       print(response.data);
     } catch (error) {
       print('Error: $error');
     }
   }
 
+  // Making POST Request:
   void postData() async {
     try {
       Response response = await dio.post(
-        'https://fakestoreapi.com/products',
+        'https://api.example.com/post',
         data: {'key': 'value'},
       );
       print(response.data);
@@ -26,6 +27,4 @@ import 'package:http/http.dart' as http;
       print('Error: $error');
     }
   }
-
-
 }
