@@ -106,7 +106,6 @@ class CustomCategoryContainer extends StatelessWidget{
 
 }
 
-
 class CustomHomeProductItem extends StatefulWidget{
 
   List<ProductItems>? items;

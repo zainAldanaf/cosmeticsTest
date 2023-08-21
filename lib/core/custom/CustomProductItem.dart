@@ -25,8 +25,8 @@ class CustomProductItem extends StatelessWidget{
 
 
     return Container(
-        width: 170,
-        height: 340,
+        width: 420,
+        height: 380,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(2),
@@ -49,13 +49,13 @@ class CustomProductItem extends StatelessWidget{
                     Column(
                       children: [
                         Positioned(
-                          top: 50,
-                          left: 50,
+                          top: 40,
+                          left: 40,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Container(
-                              width: 40,
-                              height: 40,
+                              width: 25,
+                              height: 25,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.yellow,
@@ -68,10 +68,10 @@ class CustomProductItem extends StatelessWidget{
                           top: 50,
                           left: 50,
                           child:Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+                            padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 5),
                             child: Container(
-                              width: 40,
-                              height: 40,
+                              width: 25,
+                              height: 25,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.lightPink,
@@ -79,64 +79,64 @@ class CustomProductItem extends StatelessWidget{
 
                               child: const Center(child: Text ("%20" ,textAlign: TextAlign.center,style: TextStyle(
                                 color: AppColors.white,
+                                fontSize: 10,
                                 fontWeight: FontWeight.normal,)),
                               ),
                             ),
                           ),
                         ),
                       ],),
-                    const SizedBox(width: 5,),
 
-                    Image.network(product.image , width: 85, height:85,),
+                    Center(child: Image.network(product.image , width: 55, height:55,)),
                   ],),
                 ]),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: boldText(text: product.title, fontWeight: FontWeight.bold, fontSize: 20),
+              padding: const EdgeInsets.all(5.0),
+              child: boldText(text: product.title, fontWeight: FontWeight.normal, fontSize: 5),
             ),
             Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(3.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     product.price.toString(),
                     style: const TextStyle(
-                      fontSize: 18,
-                      decoration: TextDecoration.lineThrough,
-                      color: AppColors.lightGray,
+                      fontSize: 14,
+                      color: AppColors.pink,
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SvgPicture.asset(AppImages.currency, width: 15,height: 10,),
-                  const SizedBox(width: 5),
-                  Text(
-                      product.category.toString().split('.').last,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: AppColors.pink),
-                  ),
                 ],),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:15),
+              padding: const EdgeInsets.all(4.0),
+              child: Text(
+                product.rating.toString(),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal,color: AppColors.pink),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:20),
               child: Container(
-                width: 60,
-                height: 25,
+                width: 120,
+                height: 20,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: AppColors.pink,
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      product.rating.toString(),
+                    product.category.toString().split('.').last,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 10,
                         color: AppColors.white,
                       ),
                     ),
-                    Icon(Icons.location_on_outlined , color: AppColors.white,size: 15,),
                     SizedBox(width: 5,),
 
                   ],

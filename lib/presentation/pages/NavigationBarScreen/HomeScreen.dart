@@ -8,7 +8,9 @@ import 'package:cosmeticstest/core/custom/customText.dart';
 import 'package:cosmeticstest/core/models/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../core/features/Providers/productsProvider/ProductProvider.dart';
 import '../../../core/models/Products.dart';
 import '../../../core/models/productItem.dart';
 import '../../favoriteScreen.dart';
@@ -20,6 +22,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController controller = TextEditingController();
+  late ProductProvider  productProvider = Provider.of<ProductProvider>(context, listen: false) ;
+
+  @override
+  void initState() {
+    super.initState();
+    productProvider.getDate();
+  }
 
   final List<ProductCategory> category = [
     ProductCategory(1, AppText.beauty, AppImages.cosmeticsSvg),
@@ -59,21 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var isLoaded = false;
 
   @override
-  void initState() {
-    super.initState();
-    //getData();
-  } // fetch data
-
- /* getData() async {
-    posts = await RemoteServices().getPosts();
-    if(posts != null ){
-      setState(() {
-        isLoaded = true;
-      });
-    }
-  }*/
-  @override
   Widget build(BuildContext context) {
+    final productList = productProvider.items;
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(

@@ -32,14 +32,7 @@ class _CategoryProductState extends State<CategoryProduct> {
     productProvider.getDate();
   }
 
-  void fetchData() async {
-    try {
-      Response response = await dio.get('https://fakestoreapi.com/products');
-      print(response.data);
-    } catch (error) {
-      print('Error: $error');
-    }
-  }
+
   @override
   Widget build(BuildContext context) {
     final productList = productProvider.items;
@@ -112,7 +105,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                       ),
                     );
                   },
-                      child: CustomProductItem(product,200,320));
+                      child: CustomProductItem(product,450,480));
               },),
           );
         }

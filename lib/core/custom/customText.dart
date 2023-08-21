@@ -10,7 +10,7 @@ class boldText extends StatelessWidget {
 
     return Text(text,
       textAlign:TextAlign.center,
-      style: TextStyle(fontSize: 17,
+      style: TextStyle(fontSize: 13,
           fontWeight: FontWeight.bold,
           fontFamily: 'Bahij_TheSansArabic-Plain',
           color: Colors.black),
