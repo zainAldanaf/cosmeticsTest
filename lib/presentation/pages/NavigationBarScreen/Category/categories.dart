@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constant/AppText.dart';
 import '../../../../core/constant/Images.dart';
-import '../../../../core/models/category.dart';
+import '../../../../core/features/Providers/category_provider/category.dart';
 import '../CategoryDetails/DetailCategory.dart';
 
 class Categories extends StatefulWidget{

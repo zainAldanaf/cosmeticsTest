@@ -5,13 +5,13 @@ import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/constant/colors.dart';
 import 'package:cosmeticstest/core/custom/CustomContainer.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
-import 'package:cosmeticstest/core/models/category.dart';
+import 'package:cosmeticstest/core/features/Providers/category_provider/category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/features/Providers/productsProvider/ProductProvider.dart';
-import '../../../core/models/Products.dart';
+import '../../../core/features/Providers/productsProvider/Products.dart';
 import '../../../core/models/productItem.dart';
 import '../../favoriteScreen.dart';
 

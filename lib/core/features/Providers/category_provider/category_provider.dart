@@ -1,10 +1,12 @@
+import 'package:cosmeticstest/core/features/Providers/category_provider/category.dart';
 import 'package:cosmeticstest/domain/entities/enums/provider_enum.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'Products.dart';
 
-class ProductProvider extends ChangeNotifier {
-  List<Product> items = [];
+import '../../../models/category.dart';
+
+class CategoryProvider extends ChangeNotifier {
+  List<Category> items = [];
 
   PageState errorType = PageState.dataLoading;
 
@@ -33,10 +35,10 @@ class ProductProvider extends ChangeNotifier {
   Future<void> getDate() async {
     try {
       Dio dio = Dio();
-      Response response = await dio.get('https://fakestoreapi.com/products');
+      Response response = await dio.get('https://fakestoreapi.com/products/categories');
 
       if (response.statusCode == 200) {
-        List<Product> _items = (response.data as List).map((x) => Product.fromJson(x)).toList();
+        List<Category> _items = (response.data as List).map((x) => Category.fromJson(x)).toList();
         items.addAll(_items);
 
         if (items.isEmpty) {

@@ -1,5 +1,5 @@
 import 'package:cosmeticstest/core/custom/customText.dart';
-import 'package:cosmeticstest/core/models/Products.dart';
+import 'package:cosmeticstest/core/features/Providers/productsProvider/Products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

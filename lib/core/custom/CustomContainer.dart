@@ -1,32 +1,31 @@
 
-import 'package:cosmeticstest/core/constant/Images.dart';
 import 'package:cosmeticstest/core/custom/customText.dart';
-import 'package:cosmeticstest/core/models/Products.dart';
-import 'package:cosmeticstest/core/models/Products.dart';
-import 'package:cosmeticstest/core/models/category.dart';
+import 'package:cosmeticstest/core/features/Providers/productsProvider/Products.dart';
 import 'package:cosmeticstest/core/models/favorite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
-import '../../presentation/favoriteScreen.dart';
-import '../Services/remot_service.dart';
 import '../constant/AppText.dart';
 import '../constant/colors.dart';
-import '../features/Providers/productsProvider/ProductProvider.dart';
-import '../models/Products.dart';
+import '../features/Providers/category_provider/category.dart';
+import '../features/Providers/category_provider/category_provider.dart';
 import '../models/productItem.dart';
 
 class CustomContainer extends StatefulWidget{
-  final Widget? prefixIcon;
   double? width;
   double? height;
-  final Color? backgroundColor;
+
+  final Category category;
 
 
-  CustomContainer(this.prefixIcon, this.width, this.height,
-      this.backgroundColor);
+  CustomContainer(
+      this.category,
+      this.width,
+      this.height,
+      );
+
+  List<Category> categoryItems = [];
 
   @override
   State<CustomContainer> createState() => _CustomContainerState();
@@ -35,15 +34,17 @@ class CustomContainer extends StatefulWidget{
 class _CustomContainerState extends State<CustomContainer> {
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = Provider.of<CategoryProvider>(context);
+    final categoryList = categoryProvider.items;
 
       return Container(
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
-          color: widget.backgroundColor,
+          color: AppColors.pink,
           borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
         ),
-        child: widget.prefixIcon,
+        child: Text(category.),
     );
   }
 }
